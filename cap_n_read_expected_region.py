@@ -22,7 +22,7 @@ def find_region():
             start_x, start_y = x, y
             capturing = True
             print(f"\nเริ่มจับพิกัดที่ ({start_x}, {start_y})")
-            time.sleep(0.2)  # ป้องกันการกดซ้ำ
+            time.sleep(0.2)
 
         if keyboard.is_pressed('e') and capturing:
             end_x, end_y = x, y
@@ -41,7 +41,6 @@ def find_region():
 
         time.sleep(0.1)
 
-# เรียกใช้ฟังก์ชันให้ผู้ใช้เลือกพิกัด
 region = find_region()
 
 def capture_and_read_text():
@@ -49,23 +48,18 @@ def capture_and_read_text():
         print("ยังไม่ได้เลือกพิกัด! กรุณาเลือกพิกัดก่อน")
         return
 
-    # แคปจอ
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     filename = f"screenshot_{timestamp}.png"
-    screenshot = pyautogui.screenshot(region=region)  # Capture เฉพาะพื้นที่ที่เลือก
+    screenshot = pyautogui.screenshot(region=region)
     screenshot.save(filename)
     print(f"Captured: {filename}")
 
-    # อ่านข้อความจากภาพ
     text = pytesseract.image_to_string(Image.open(filename), lang="eng")
 
-    # เอาเฉพาะตัวเลข
     numbers = re.findall(r"\d+\.\d+", text)
 
     print("Detected Numbers:", numbers)
 
-# หน่วงเวลาให้ผู้ใช้มีเวลาตั้งตัว
 time.sleep(1)
 
-# เรียกใช้ฟังก์ชันจับภาพและอ่านข้อความ
 capture_and_read_text()
