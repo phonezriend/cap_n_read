@@ -45,7 +45,7 @@ region = find_region()
 
 def capture_and_read_text():
     if region is None:
-        print("ยังไม่ได้เลือกพิกัด! กรุณาเลือกพิกัดก่อน")
+        print("Please select the region!")
         return
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
