@@ -56,7 +56,10 @@ def capture_and_read_text():
 
     text = pytesseract.image_to_string(Image.open(filename), lang="eng")
 
-    numbers = re.findall(r"\d+\.\d+", text)
+    numbers = re.findall(r"\d+[\.,]?\d*", text)
+
+    # use this if want only numbers with decimal points ex: 0.00, 2.91, 3.14 ...
+    # numbers = re.findall(r"\d+\.\d+", text)
 
     print("Detected Numbers:", numbers)
 
